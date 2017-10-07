@@ -5,7 +5,7 @@
 #include "windows.h"
 
 #include "Display.h"
-//changedfortesting - now, branch, final
+//changedfortesting - now, branch, final - 1
 using namespace std;
 
 	DISPLAY::DISPLAY(int display_width, int display_height) 
