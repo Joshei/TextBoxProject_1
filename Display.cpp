@@ -5,9 +5,11 @@
 #include "windows.h"
 
 #include "Display.h"
-//changedfortesting - now, branch, final - 1 - 2 - 3 - 4 - 5 - 6 - 7 - 8
+
+
 using namespace std;
 
+//let's see this...
 	DISPLAY::DISPLAY(int display_width, int display_height) 
 	{
 	
