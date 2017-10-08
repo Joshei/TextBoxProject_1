@@ -64,7 +64,7 @@ int main(void) {
 
 		
 					   	
-		string test = "abcd efghij mnopq rs12345 6 7 8 9 45678";
+		string test = "a bcdefgh ijmnopqdrs 1234 56 78 9111 4567 811004";
 					   							   //
 
 		while (one_time_loop == 0)

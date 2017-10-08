@@ -78,8 +78,10 @@ using namespace std;
 		textmessage.setString(test_string);
 
 
-		num_chars_on_this_line = -1;
+		//num_chars_on_this_line = 0;
 
+
+		
 		
 		while (1)
 		{
@@ -93,24 +95,20 @@ using namespace std;
 			amt_of_letters_to_display = 0;
 
 
-			if (num_chars_on_this_line == -1)
-			{
-				num_chars_on_this_line = 0;
-			}
-			else
-			{
+			
+		
 
 
 
 
 				//total_offset = total_offset + num_chars_on_this_line + 1 ;
 				total_offset = total_offset + num_chars_on_this_line;
-			}
+			
 
 
 			width = 0;
 
-			num_chars_on_this_line = -1;
+			num_chars_on_this_line = 0;
 			
 
 			//find number of characters by width
@@ -125,9 +123,9 @@ using namespace std;
 
 				
 
-				num_chars_on_this_line++;
 				
-				if (j > (test_string.length()))
+				
+				if (j > (test_string.length() + 1))
 				{
 					on_last_line = 1;
 					break;
@@ -154,7 +152,7 @@ using namespace std;
 				}
 
 			
-				
+				num_chars_on_this_line++;
 
 			}
 
