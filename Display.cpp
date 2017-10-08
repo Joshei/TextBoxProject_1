@@ -125,7 +125,7 @@ using namespace std;
 
 				
 				
-				if (j > (test_string.length() + 1))
+				if (j > (test_string.length() ))
 				{
 					on_last_line = 1;
 					break;
