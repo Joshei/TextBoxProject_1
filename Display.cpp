@@ -88,11 +88,25 @@ using namespace std;
 
 			
 
+			amt_letters_of_last_word = 0;
+
+			amt_of_letters_to_display = 0;
 
 
-			
-			total_offset = total_offset + num_chars_on_this_line + 1 ;
-			
+			if (num_chars_on_this_line == -1)
+			{
+				num_chars_on_this_line = 0;
+			}
+			else
+			{
+
+
+
+
+				//total_offset = total_offset + num_chars_on_this_line + 1 ;
+				total_offset = total_offset + num_chars_on_this_line;
+			}
+
 
 			width = 0;
 
@@ -109,16 +123,17 @@ using namespace std;
 				
 
 
-				j++;
+				
 
 				num_chars_on_this_line++;
 				
-				if (j >= (test_string.length()))
+				if (j > (test_string.length()))
 				{
 					on_last_line = 1;
 					break;
 				}
 				
+				j++;
 
 
 				
@@ -230,37 +245,64 @@ using namespace std;
 
 					}
 
-				}
-				
-	//test////
-
-/*
-
-				//current teststring 
-
-				//look at next characer to see if ending word is wrapped or printed
-				if (temporary_string[k] == ' ')
-				{
-
-					amt_of_letters_to_display = num_chars_on_this_line - 1;
-
-				}
-
-				//there is a word wrapping around the right boundary
-				else
-				{
-					amt_of_letters_to_display = (num_chars_on_this_line - 1) - amt_letters_of_last_word;
-
-					j = j - amt_letters_of_last_word;
 
 
-				}
+					//test////
 
+
+
+								//current teststring 
+
+								//look at next characer to see if ending word is wrapped or printed
+					if (temporary_string[k] == ' ')
+					{
+
+						amt_of_letters_to_display = num_chars_on_this_line;
+
+					}
+
+
+
+
+					//there is a word wrapping around the right boundary
+					else
+
+					{
+					
+						if (amt_letters_of_last_word >= num_chars_on_this_line)
+						{
+							
+							MessageBoxA(NULL, "error a word is to long", "title", MB_OK);
+							exit(-1);
+
+						}
+
+
+						amt_of_letters_to_display = num_chars_on_this_line  - amt_letters_of_last_word ;
+
+						
+
+
+						j = j - amt_letters_of_last_word;
+						total_offset = total_offset - amt_letters_of_last_word;
+
+					}
+
+
+					
+					temporary_string.resize(amt_of_letters_to_display);
+					
+
+
+
+
+
+
+
+				}//if for is not last line
+
+			////end while
 			
-
-
-			}
-			*/
 
 
 			//not on last line setting set so not called when on last line
@@ -319,7 +361,7 @@ using namespace std;
 			}
 
 
-	//emd for loop
+	//emd while
 		}
 	
 }
