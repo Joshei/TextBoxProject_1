@@ -24,7 +24,7 @@ using namespace std;
 	{
 
 		
-
+		bool is_on_first_run = true;
 		int first_run = 1;
 
 		float num_chars_on_this_line = 0;
@@ -72,7 +72,7 @@ using namespace std;
 		
 
 		
-		int j = 0;
+		int j = 1;
 		int run = 0;
 
 		textmessage.setString(test_string);
@@ -108,7 +108,7 @@ using namespace std;
 
 			width = 0;
 
-			num_chars_on_this_line = 0;
+			num_chars_on_this_line = 1;
 			
 
 			//find number of characters by width
@@ -125,7 +125,7 @@ using namespace std;
 
 				
 				
-				if (j > (test_string.length() ))
+				if (j == (test_string.length() ))
 				{
 					on_last_line = 1;
 					break;
@@ -166,42 +166,50 @@ using namespace std;
 
 			//
 			temporary_string.erase(0, temporary_string.length() - 0);
-			temporary_string.resize(num_chars_on_this_line + 1);
-
-	/*		
 			
-				temporary_string.erase(0, temporary_string.length() - 0);
 			
-				if (!on_last_line)
-				{
-					temporary_string.resize(num_chars_on_this_line + 1);
-				}
-				else
-				{
-					temporary_string.resize(num_chars_on_this_line);
+			
+			
 
-				}
-		
-		*/
+	
+			
+			
+			//only line processed
+			if (on_last_line   &&  is_on_first_run)
+			{
+				temporary_string.resize(num_chars_on_this_line);
 
-				//resize was set as one more than was used and printed a square box?!?!?
+			}
+			
+			//multipple lines processed
+			else if (on_last_line)
+			{
+
+				temporary_string.resize(num_chars_on_this_line - 1);
+			}
+
+			
+
+			
+
+			
+			//isn't last line
+			else if (!on_last_line)
+			{
+				temporary_string.resize(num_chars_on_this_line + 1);
+			}
 
 
-			//not on last line so there is another retrievable character in test_string for checking next line
-			//if (on_last_line != 1)
-			//{
+			//for (i = 0; i < num_chars_on_this_line - 1; i++)
+			for (i = 0; i < num_chars_on_this_line; i++)
+			{
 
+				temporary_string[i] = test_string[total_offset + i];
 				
 
-				for (i = 0; i <= num_chars_on_this_line; i++)
-				{
+			}
 
-					temporary_string[i] = test_string[total_offset + i];
 				
-
-				}
-
-
 				
 				
 
@@ -245,13 +253,9 @@ using namespace std;
 
 
 
-					//test////
+					
 
-
-
-								//current teststring 
-
-								//look at next characer to see if ending word is wrapped or printed
+					//look at next characer to see if ending word is wrapped or printed
 					if (temporary_string[k] == ' ')
 					{
 
@@ -299,22 +303,7 @@ using namespace std;
 
 				}//if for is not last line
 
-			////end while
 			
-
-
-			//not on last line setting set so not called when on last line
-			//int thislength = temporary_string.length();
-			//temporary_string.resize(thislength - 1);
-			//textmessage.setString(temporary_string);
-
-			//******CHECK FOR LENGTH OF LETTERS MORE THAN WIDTH AND DISPLAY ERROR
-
-
-
-			
-
-			//draws text 
 
 			//add padd
 			textmessage.setPosition(0, height);
@@ -343,20 +332,25 @@ using namespace std;
 
 
 			windowtype.draw(textmessage);
+			
 
 			
 			//passed in value here : 20.
 			height = height + 40;
 			height2 = height2 + 50;
 
-			// erases entire processed string
-			//processed_string.erase(0, processed_string.length());
-			//test_string.erase(0, test_string.length);
+			
 
 			if (on_last_line)
 			{
 				break;
 			}
+
+			if (is_on_first_run)
+			{
+				is_on_first_run = false;
+			}
+
 
 
 	//emd while
