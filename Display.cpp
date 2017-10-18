@@ -137,7 +137,7 @@ int g_the_width = 0;
 
 		textmessage.setString(message_string);
 		
-		//each_vertical_offset_is = textmessage.findCharacterPos(2).y;
+		
 		each_vertical_offset_is = textmessage.getLocalBounds().height;
 		
 
@@ -206,7 +206,7 @@ int g_the_width = 0;
 				
 
 				
-				//w//idth = textmessage.getGlobalBounds().width;
+				//width = textmessage.getGlobalBounds().width;
 
 				//text is complete for this line
 				if ((prevwidth >= width )&& ( num_chars_on_this_line != 0))
@@ -224,12 +224,12 @@ int g_the_width = 0;
 			
 			textmessage.setPosition(300, height2);
 
-		//  this causes a glitch, doesn't print second row
+			//  this causes a glitch, doesn't print second row
 			windowtype2.draw(textmessage);
 
 			windowtype2.display();
 
-		//
+			//
 			temporary_string.erase(0, temporary_string.length() - 0);
 			
 			
@@ -387,18 +387,17 @@ int g_the_width = 0;
 			
 			
 			
-			//700 pixels equates too 357 for the_width
+			//700 pixels equates too 357 for the_width!?!?!?!
 			float the_width = textmessage.getLocalBounds().width;
 
 			
 			
 			
-			//rectangle_box(1,1);
+			
 			
 			// 357 is the width of the rectangle
 			sf::RectangleShape rectangle_box(sf::Vector2f(the_width , (float)(total_lines * each_vertical_offset_is)));
-			//rectangle_box.setOrigin(display_x_setting, display_y_setting);
-			//rectangle_box.setOrigin(100, 0);
+			
 			rectangle_box.setFillColor(sf::Color(100, 250, 50));
 
 			if (first_run == 1)
@@ -414,7 +413,7 @@ int g_the_width = 0;
 			
 
 			
-			//passed in value here : 20.
+			
 
 			
 			height = height + each_vertical_offset_is;
@@ -434,7 +433,18 @@ int g_the_width = 0;
 
 			//j is still set and so is offset
 			
+			
+			
+			//LOOK AT THIS!!!!!:
+			
+			
 			space_is_used = 1;
+
+
+
+
+
+
 
 			if ( (space_is_used && on_last_line  )  || (space_is_used && ((line_number) == (total_lines - 2) )))
 			{
@@ -453,106 +463,33 @@ int g_the_width = 0;
 						exit(1);
 					}
 
-					//SetFont(Fontforscore);
+					
 
 					message_holder.setFont(Fontforscore);
 					message_holder.setCharacterSize(14);
 					message_holder.setFillColor(sf::Color::Red);
 					
 					message_holder.setOrigin(0,0);
-					//message_holder.setPosition(10, 10);
+					
 					message_holder.setString(temp_string);
 					
-					//text_width_pixels 
+					
 					int y_for_space = display_y_setting + (total_lines - 2) * each_vertical_offset_is;
 
-					
-
-					
 					int this_width = 0;
 					
-					///////////////////////
-					/*
-					if (j == (message_string.length()))
-					{
-						on_last_line = 1;
-						break;
-					}
-
-					j++;
-
-
-					prevwidth = width;
-					width = textmessage.findCharacterPos(num_chars_on_this_line).x - textmessage.findCharacterPos(0).x;
-
-
-
-					//w//idth = textmessage.getGlobalBounds().width;
-
-					//text is complete for this line
-					if ((prevwidth >= width) && (num_chars_on_this_line != 0))
-
-					{
-
-						break;
-					}
-
-
-					num_chars_on_this_line++;
-
-			}
-					
-					
-					
-					
-					
-					*/
-					
-				/*	
-					int this_width1 = 0;
-					//////////////////////
-					
-
-					textmessage.setString("11111111111111111111111111111111111111");
-
-					while (text_width_pixels >= this_width1)//( this_width == 357 )
-					{
-
-						num_chars_on_this_line++;
-
-						the_temp_string.append("i");
-						
-						
-
-						
-
-						float prev_width = this_width1;
-						this_width1 = textmessage.findCharacterPos(num_chars_on_this_line).x - textmessage.findCharacterPos(0).x;
-						if (prev_width == this_width1)
-						{
-							flag = 0;
-						}
-
-
-					}
-
-					message_holder.setString(the_temp_string);
-
-					*/
-
 					float x = message_holder.getLocalBounds().width;
 
 
 					
 					//the_width : 357
-					//int x_value = 1;
 					//message_holder.setPosition((66.5), y_for_space);
 					message_holder.setPosition( ( (g_the_width - x )/2), y_for_space);
 
 			
-					windowtype2.close();// draw(message_holder);
+					windowtype2.close();
 
-					//windowtype2.display();
+					
 					
 					
 					windowtype.draw(message_holder);
@@ -576,9 +513,6 @@ int g_the_width = 0;
 
 				textmessage.setString(message_string);
 
-		
-				
-				
 				//ClearOutBox( windowtype );
 
 
@@ -634,20 +568,16 @@ int DISPLAY::Get_Active_Statement_Number_Index(int conversation_num_index)
 
 }
 
-
-//int DISPLAY::Get_Active_Conversation_Number()
-//{
-//
-//eturn(alltheconversations[conversation_number].highest_statement_num;)
-//
-//}
-
-
-///////////
+/*
+   //int DISPLAY::Get_Active_Conversation_Number()
+   //{
+   //
+   //eturn(alltheconversations[conversation_number].highest_statement_num;)
+   //
+   //}
+*/
 
 
-
-///////////
 
 
 	sf::Text DISPLAY::GetText()

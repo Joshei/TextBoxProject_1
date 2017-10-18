@@ -1,7 +1,6 @@
-//#include "windows.h"
+
 #include <SFML\Graphics.hpp>
 #include "Display.h"
-//#include <string>
 #include <iostream>
 #include <memory>
 #include "windows.h"
@@ -27,7 +26,7 @@ std::unique_ptr<DISPLAY> ptextdisplay(new DISPLAY(50, 50, 50, 10, 0, 0));  // * 
 
 	
 																		  
-																		  //window object
+																		 
 
 
 int main(void) {
@@ -94,7 +93,7 @@ int main(void) {
 		
 					   	
 		string test = "a b c d ef ghijklm no pqd r stuv  1 234 56 789 0 123 45678 90 1234abcd ef";
-					   							   //
+					   							  
 
 		std::vector <message> alltheconversations;
 
@@ -105,13 +104,6 @@ int main(void) {
 
 
 
-
-			
-
-
-			
-			
-			
 			//Configure_Message(bool is_spaced, bool is_yes_no, string in_string, int  conv_id, int statent_id, int by1, int by2, int from)
 			
 			string temp;
@@ -128,7 +120,7 @@ int main(void) {
 			
 
 			
-			//conv_num, vert lines....
+			//conv_num, vert lines....?!?!?!
 			Draw_A_Message(input_statement_num_index, window, window2, 0, 10);
 
 			
