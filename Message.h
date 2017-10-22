@@ -33,7 +33,7 @@ class message
 
 public:
 
-	message(int statement_number_index, int conv_number_index);
+	message( int conv_number_index);
 
 
 	static string Get_Out_Bound_String()
@@ -51,6 +51,10 @@ public:
 	int Check_For_Latest_Message_Index();
 	void Configure_Message( bool, bool, string, int, int, int, int,int);
 	int Get_Next_Conversation_Statement_Num_Index();
+	int Get_Current_Conversation_Statement_Num_Index();
+
+
+
 	void Set_Conversation_Current_Statement_Num_Index(int statement_number);
 	
 	int Get_Active_Statement_Index();

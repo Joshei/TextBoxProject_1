@@ -13,7 +13,7 @@ public:
 
 	std::vector <message> alltheconversations;
 
-	int ClearOutBox(sf::RenderWindow & windowtyp);
+	void ClearOutBox(sf::RenderWindow & windowtyp, float width);
 
 
 	void Get_Space_Is_Used(int conversation_num, int statement_num);
@@ -43,8 +43,9 @@ public:
 	//int Get_Active_Statement_Number(int conv_number);
 	
 	//holds space or yes / no statement
-	sf::Text message_holder;
+	//sf::Text message_holder;
 	sf::Text textmessage;
+	sf::Text textmessage1;
 	sf::Font font;
 
 	

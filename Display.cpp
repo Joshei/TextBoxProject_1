@@ -12,7 +12,7 @@
 using namespace std;
 
 
-int g_the_width = 0;
+int gflag = 0;
 
 
 
@@ -20,7 +20,7 @@ int g_the_width = 0;
 	DISPLAY::DISPLAY(int display_width, int display_height, int vert_offset, int amount_of_total_lines, int display_origin_x, int display_origin_y) 
 	{
 	
-
+		//message_holder.setString("yyyy");
 		
 		width = 0;  // display_width;
 		height = 0; //  display_height;
@@ -146,6 +146,8 @@ int g_the_width = 0;
 
 		
 		
+
+		//for next line
 		while (1)
 		{
 
@@ -153,48 +155,108 @@ int g_the_width = 0;
 
 			
 
+			line_number++;
+
 			amt_letters_of_last_word = 0;
 
 			amt_of_letters_to_display = 0;
 
 
-			
-		
 
-
-
-
-				//total_offset = total_offset + num_chars_on_this_line + 1 ;
-				total_offset = total_offset + num_chars_on_this_line;
+			//total_offset = total_offset + num_chars_on_this_line + 1 ;
+			total_offset = total_offset + num_chars_on_this_line;
 			
 
+			int one_through_count = 0;
+			float first_width = 0;
+			float width = 0;
+			
 
-			width = 0;
+			///////////////
+			string message_string1;
+			
+			//CHECHK THIS
+			textmessage.setCharacterSize(18);
+			textmessage1.setCharacterSize(18);
+
+			textmessage1.setPosition(0,0);
+			//textmessage1.setCharacterSize(18);
+			textmessage1.setFillColor(sf::Color::Red);
+			//textmessage.setString(temporary_string);
+			sf::Font Fontforscore;
+
+			if (!Fontforscore.loadFromFile("ARIALBD.ttf"))
+			{
+				exit(1);
+			}
+
+
+
+			textmessage1.setFont(Fontforscore);
+
+
+
+
 
 			num_chars_on_this_line = 1;
-			
 
-			//find number of characters by width
-			while (text_width_pixels >= width)//text_width_pixels >= width)
+			while (first_width <= 290)// > width)//text_width_pixels >= width)
+			{
+
+				message_string1.append("T");
+
+				textmessage1.setString(message_string1);
+
+
+
+		//		if (j == (message_string.length()))
+		//		{
+		//			on_last_line = 1;
+		//			break;
+		//		}
+
+	//			j++;
+
+
+				prevwidth = first_width;
+				first_width = textmessage1.findCharacterPos(num_chars_on_this_line).x - textmessage1.findCharacterPos(0).x;
+				//first_width = textmessage1.getLocalBounds().width;
+
+
+				//width = textmessage.getGlobalBounds().width;
+
+				//text is complete for this line
+				if ((prevwidth == first_width) && (one_through_count != 0))
+
+				{
+
+					break;
+				}
+
+				one_through_count = 1;
+				num_chars_on_this_line++;
+
+			}
+
+			//windowtype2.draw(textmessage);
+
+			//windowtype2.display();
+
+
+			//////////////
+
+			num_chars_on_this_line = 1;
+
+
+			//find number of characters by width - width = : 496
+			while (first_width > width)// > width)//text_width_pixels >= width)
 			{
 	
-
-
-				/////////////////////////////
-
-
-				//check if space is attributed and prints this as last line
-				//and waits foir keypress.
-			
-				line_number++;
-
-				
-
-
+				 
 				
 				if (j == (message_string.length() ))
 				{
-					on_last_line = 1;
+      					on_last_line = 1;
 					break;
 				}
 				
@@ -202,14 +264,12 @@ int g_the_width = 0;
 
 			
 				prevwidth = width;
-				width = textmessage.findCharacterPos(num_chars_on_this_line).x - textmessage.findCharacterPos(0).x;
-				
-
-				
+				width = textmessage.findCharacterPos(num_chars_on_this_line).x-textmessage.findCharacterPos(0).x;
+			
 				//width = textmessage.getGlobalBounds().width;
 
 				//text is complete for this line
-				if ((prevwidth >= width )&& ( num_chars_on_this_line != 0))
+				if ((prevwidth == width )&& ( num_chars_on_this_line != 0))
 		
 				{
 					
@@ -220,14 +280,17 @@ int g_the_width = 0;
 				num_chars_on_this_line++;
 
 			}
+			
+			//move this...!
+			//ClearOutBox(windowtype, first_width);
 
 			
-			textmessage.setPosition(300, height2);
+			//textmessage.setPosition(300, height2);
 
 			//  this causes a glitch, doesn't print second row
 			windowtype2.draw(textmessage);
 
-			windowtype2.display();
+ 			windowtype2.display();
 
 			//
 			temporary_string.erase(0, temporary_string.length() - 0);
@@ -336,13 +399,13 @@ int g_the_width = 0;
 
 					{
 					
-						if (amt_letters_of_last_word >= num_chars_on_this_line)
-						{
-							
-							MessageBoxA(NULL, "error a word is to long", "title", MB_OK);
-							exit(-1);
-
-						}
+		//				if (amt_letters_of_last_word >= num_chars_on_this_line)
+		//				{
+		//					
+		//					MessageBoxA(NULL, "error a word is to long", "title", MB_OK);
+		//					exit(-1);
+		//				
+		//				}
 
 
 						amt_of_letters_to_display = num_chars_on_this_line  - amt_letters_of_last_word ;
@@ -378,7 +441,7 @@ int g_the_width = 0;
 			//add padd
 			//general text
 			textmessage.setPosition(display_x_setting, display_y_setting +  height);
-			textmessage.setCharacterSize(14);
+			textmessage.setCharacterSize(18);
 			textmessage.setFillColor(sf::Color::Red);
 			textmessage.setString(temporary_string);
 
@@ -388,21 +451,21 @@ int g_the_width = 0;
 			
 			
 			//700 pixels equates too 357 for the_width!?!?!?!
-			float the_width = textmessage.getLocalBounds().width;
+			//float the_width = textmessage.getLocalBounds().width;
 
 			
 			
 			
 			
-			
+ 			
 			// 357 is the width of the rectangle
-			sf::RectangleShape rectangle_box(sf::Vector2f(the_width , (float)(total_lines * each_vertical_offset_is)));
+			sf::RectangleShape rectangle_box(sf::Vector2f((first_width + 18), (float)(total_lines * each_vertical_offset_is)));
 			
 			rectangle_box.setFillColor(sf::Color(100, 250, 50));
 
 			if (first_run == 1)
 			{
-				g_the_width = the_width;
+				
 
 				first_run = 2;
 				windowtype.draw(rectangle_box);
@@ -425,7 +488,7 @@ int g_the_width = 0;
 			
 
 			
-
+			/*
 
 			////////////////
 
@@ -443,82 +506,98 @@ int g_the_width = 0;
 
 
 
+			sf::Text message_holder10;
+			sf::RenderWindow windowtype3(sf::VideoMode(700, 1000), "a");
 
 
-
-			if ( (space_is_used && on_last_line  )  || (space_is_used && ((line_number) == (total_lines - 2) )))
+			if ((space_is_used && on_last_line) || (space_is_used && ((line_number) == (total_lines - 2))))
 			{
 
 
-					string temp_string = message::Get_Out_Bound_String();
+				//string temp_string = message::Get_Out_Bound_String();
 
-					int length_of_string = temp_string.length();
+				//int length_of_string = temp_string.length();
+
+				sf::Font Fontforscore;
+
+				if (gflag == 0)
+				{
+					gflag = 1;
 
 					
-					
-					sf::Font Fontforscore;
 
 					if (!Fontforscore.loadFromFile("ARIALBD.ttf"))
 					{
 						exit(1);
 					}
 
-					
-
-					message_holder.setFont(Fontforscore);
-					message_holder.setCharacterSize(14);
-					message_holder.setFillColor(sf::Color::Red);
-					
-					message_holder.setOrigin(0,0);
-					
-					message_holder.setString(temp_string);
-					
-					
-					int y_for_space = display_y_setting + (total_lines - 2) * each_vertical_offset_is;
-
-					int this_width = 0;
-					
-					float x = message_holder.getLocalBounds().width;
 
 
-					
-					//the_width : 357
-					//message_holder.setPosition((66.5), y_for_space);
-					message_holder.setPosition( ( (g_the_width - x )/2), y_for_space);
 
-			
+					message_holder10.setFont(Fontforscore);
+					message_holder10.setCharacterSize(100);
+					message_holder10.setFillColor(sf::Color::Red);
+
+					message_holder10.setOrigin(0, 0);
+
+					message_holder10.setPosition(0, 0);
 					windowtype2.close();
 
+				}
+
+				message_holder10.setString("asty");
 					
+					//int y_for_space = display_y_setting + (total_lines - 2) * each_vertical_offset_is;
+
+					//int this_width = 0;
 					
-					
-					windowtype.draw(message_holder);
+					//float x = message_holder.getLocalBounds().width;
 
 
-					windowtype.display();
+					
+					
+					//message_holder.setPosition( ( (first_width - x )/2), y_for_space);
+					
+			
+					//windowtype2.close();
+
+
+					string test = 	message_holder10.getString();
+					
+					windowtype3.clear();
+					windowtype3.draw(message_holder10);
+					windowtype3.display();
+					*/
+					
+ 					
+
+ 
+					//windowtype.display();
 
 				
 
 
-				Wait_For_Space_Press();
+ 				Wait_For_Space_Press();
 
-				ClearOutBox(windowtype);
+				
 
 				// - 1
-				int next_statement_number = alltheconversations[convers_num_index].Get_Next_Conversation_Statement_Num_Index();
+				//int next_statement_number = alltheconversations[convers_num_index].Get_Next_Conversation_Statement_Num_Index();
 				
 
-				message_string = Get_String_Message(convers_num_index, next_statement_number);
+				//message_string = Get_String_Message(convers_num_index, next_statement_number);
 				
 
-				textmessage.setString(message_string);
+				//textmessage.setString(message_string);
 
 				//ClearOutBox( windowtype );
 
 
 				
 
-				height = 0;
+				//height = 0;
+				
+ 				break;
 
 
 
@@ -547,10 +626,14 @@ int g_the_width = 0;
 			}
 
 
+			
+
 
 	//emd while
-		}
+		}//next line
 	
+
+
 }
 
 
@@ -596,7 +679,7 @@ int DISPLAY::Get_Active_Statement_Number_Index(int conversation_num_index)
 
 	void DISPLAY::SetFont1(sf::Font & theFont)
 	{
-		message_holder.setFont(theFont);
+//		message_holder.setFont(theFont);
 
 
 
@@ -604,15 +687,14 @@ int DISPLAY::Get_Active_Statement_Number_Index(int conversation_num_index)
 
 
 	
-	int DISPLAY::ClearOutBox(sf::RenderWindow  & windowtype)
+	void DISPLAY::ClearOutBox(sf::RenderWindow  & windowtype, float first_width)
 	{
 
-		return(1);
-
-
-		sf::RectangleShape rectangle_box(sf::Vector2f(display_x_setting, display_y_setting));
-		rectangle_box.setFillColor(sf::Color(100, 250, 50));
-		windowtype.draw(rectangle_box);
+		
+		//the_width , (float)(total_lines * each_vertical_offset_is)));
+		//sf::RectangleShape rectangle_box(sf::Vector2f((first_width + 10), (float)(total_lines * each_vertical_offset_is)));
+		//rectangle_box.setFillColor(sf::Color(100, 250, 50));
+		//windowtype.draw(rectangle_box);
 
 	}
 	

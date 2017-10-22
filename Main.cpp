@@ -92,25 +92,34 @@ int main(void) {
 		
 		
 					   	
-		string test = "a b c d ef ghijklm no pqd r stuv  1 234 56 789 0 123 45678 90 1234abcd ef";
-					   							  
+		string test = "a b c d ef ghijklm no pqd r stuv  1234 56 789 0 123 45678 90 1234abc d ef";
+
+		int checkthis = test.length();
+		string test1 = "abc def ghi jkl mno pqr stu vwx yz 123 456 789 012 345 678 901 abc deg ghi";
+		string test2 = "zabc zdef zghi zjkl zmno zpqr zstu zvwx zyz z123 z456 z789 z012 z345 z678 z901 zabc zdeg zghi";
+
+
+		
 
 		std::vector <message> alltheconversations;
 
 
 		while (one_time_loop == 0)
-		{
+		{  
 			one_time_loop = 1;
-
+			 
 
 
 			//Configure_Message(bool is_spaced, bool is_yes_no, string in_string, int  conv_id, int statent_id, int by1, int by2, int from)
 			
 			string temp;
-			temp = "This is a test to see how this is working.  lets do a little test";
+			temp = "This is a test to see how this iswor ki ng.  lets do a 21111 A";
 
+
+			//message_string = Get_String_Message(convers_num_index, next_statement_number);
 			//Add_A_Message(int conv_num, string )
-			Add_A_Message(0, temp );
+			Add_A_Message(0, temp);
+			Add_A_Message(0, test);
 
 
 			//sf::RenderWindow & windowtype, sf::RenderWindow & windowtype2,  string test_string, int convers_num, int vert_line_length
@@ -122,7 +131,9 @@ int main(void) {
 			
 			//conv_num, vert lines....?!?!?!
 			Draw_A_Message(input_statement_num_index, window, window2, 0, 10);
-
+			
+			
+			Draw_A_Message(1, window, window2, 0, 10);
 			
 
 			window.display();
@@ -139,14 +150,29 @@ int main(void) {
 
 	//incomplete
 	//bool is_spaced, bool is_yes_no, string in_string, int  conv_id, int statent_id, int by1, int by2, int from
+	
+	//message(int statement_number_index, int conv_number_index)
 	void Add_A_Message(int conv_num_index, string temp)
 	{
-		//int total_number_messages, int statement_numbers, int conv_number);
-		ptextdisplay->alltheconversations.push_back(message( 0, 0));
-		int next_statement_number = ptextdisplay->alltheconversations[conv_num_index].Get_Next_Conversation_Statement_Num_Index();
 		
-		ptextdisplay->alltheconversations[conv_num_index].Configure_Message(true, false, temp, conv_num_index, next_statement_number,1,1,1);
+		
+		//int next_statement_number_index = statement_number + 1;
+
+		//int total_number_messages, int statement_numbers, int conv_number);
+
+		
+
+		ptextdisplay->alltheconversations.push_back(message(conv_num_index));
+		
+		int statement_number_index = ptextdisplay->alltheconversations[conv_num_index].Get_Active_Statement_Index();
+
+		ptextdisplay->alltheconversations[conv_num_index].Configure_Message(true, false, temp, conv_num_index, (statement_number_index + 1),1,1,1);
+	
 	}
+
+
+
+
 
 	void Draw_A_Message(int input_statement_num_index , sf::RenderWindow & window, sf::RenderWindow &  window2, int conv_num_index,int  vert_lines)
 	{
