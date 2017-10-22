@@ -488,7 +488,7 @@ int gflag = 0;
 			
 
 			
-			/*
+			
 
 			////////////////
 
@@ -567,7 +567,7 @@ int gflag = 0;
 					windowtype3.clear();
 					windowtype3.draw(message_holder10);
 					windowtype3.display();
-					*/
+					
 					
  					
 
