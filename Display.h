@@ -23,7 +23,7 @@ public:
 
 
 	DISPLAY(  int, int, int displau_width, int display_height, int v_offset, int num_lines);
-	void DrawMessage(sf::RenderWindow & windowtype, sf::RenderWindow & windowtype2, std::string string, int convnum, int line_length);
+	void DrawMessage(sf::RenderWindow & windowtype, std::string string, int convnum, int line_length);
 	void SetFont(sf::Font & theFont);
 	void SetFont1(sf::Font & theFont);
 	

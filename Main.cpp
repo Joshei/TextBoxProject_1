@@ -6,17 +6,17 @@
 #include "windows.h"
 #include "message.h"
 
-
+int gflag = 0;
 
 void Add_A_Message(int conv_num_index, string temp);
-void Draw_A_Message(int statemtnt_num_index, sf::RenderWindow & window, sf::RenderWindow &  window2, int conv_num_index, int  vert_lines);
+void Draw_A_Message(int statemtnt_num_index, sf::RenderWindow & window, int conv_num_index, int  vert_lines);
 
 
 
 //for checking keypress and closing window
 sf::Event event;
 sf::RenderWindow window(sf::VideoMode(1000, 700), "!!!!");
-sf::RenderWindow window2(sf::VideoMode(1000, 700), "!!!!");
+//sf::RenderWindow window2(sf::VideoMode(1000, 700), "!!!!");
 
 
 
@@ -74,7 +74,7 @@ int main(void) {
 
 
 				//shoots at asteroid
-				if (event.key.code == sf::Keyboard::Space)
+				if (event.key.code == sf::Keyboard::Escape)
 				{
 					exit(-1);
 				}
@@ -130,13 +130,14 @@ int main(void) {
 
 			
 			//conv_num, vert lines....?!?!?!
-			Draw_A_Message(input_statement_num_index, window, window2, 0, 10);
+			Draw_A_Message(input_statement_num_index, window, 0, 10);
+			
+			gflag = 0;
+			
+			Draw_A_Message(1, window, 0, 10);
 			
 			
-			Draw_A_Message(1, window, window2, 0, 10);
-			
-
-			window.display();
+		//	window.display();
 
 		}
 
@@ -174,13 +175,13 @@ int main(void) {
 
 
 
-	void Draw_A_Message(int input_statement_num_index , sf::RenderWindow & window, sf::RenderWindow &  window2, int conv_num_index,int  vert_lines)
+	void Draw_A_Message(int input_statement_num_index , sf::RenderWindow & window, int conv_num_index,int  vert_lines)
 	{
 
 		//int active_number = ptextdisplay->Get_Active_Statement_Number_Index(conv_num_index);//;// alltheconversations[1].Get_Active_Statement_Index();
 		string message = ptextdisplay->Get_String_Message(conv_num_index, input_statement_num_index);// alltheconversations[1].Get_Message_With_Statement_Num(active_number + 1);
 
 
-		ptextdisplay->DrawMessage(window, window2, message, conv_num_index, vert_lines);
+		ptextdisplay->DrawMessage(window, message, conv_num_index, vert_lines);
 
 	}

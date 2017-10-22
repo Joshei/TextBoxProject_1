@@ -10,10 +10,10 @@
 #include "message.h"
 
 using namespace std;
+extern int gflag;
 
 
-int gflag = 0;
-
+int g_y = 0;
 
 
 //let's see this...
@@ -73,7 +73,7 @@ int gflag = 0;
 
 
 	//five test_string changed to message_string in here
-	void DISPLAY::DrawMessage(sf::RenderWindow & windowtype, sf::RenderWindow & windowtype2,  string test_string, int convers_num_index, int vert_line_length)
+	void DISPLAY::DrawMessage(sf::RenderWindow & windowtype, string test_string, int convers_num_index, int vert_line_length)
 
 	{
 
@@ -288,9 +288,9 @@ int gflag = 0;
 			//textmessage.setPosition(300, height2);
 
 			//  this causes a glitch, doesn't print second row
-			windowtype2.draw(textmessage);
+			//windowtype2.draw(textmessage);
 
- 			windowtype2.display();
+ 			//windowtype2.display();
 
 			//
 			temporary_string.erase(0, temporary_string.length() - 0);
@@ -507,18 +507,18 @@ int gflag = 0;
 
 
 			sf::Text message_holder10;
-			sf::RenderWindow windowtype3(sf::VideoMode(700, 1000), "a");
+			//sf::RenderWindow windowtype3(sf::VideoMode(700, 1000), "a");
 
 
 			if ((space_is_used && on_last_line) || (space_is_used && ((line_number) == (total_lines - 2))))
 			{
 
 
-				//string temp_string = message::Get_Out_Bound_String();
+				string temp_string = message::Get_Out_Bound_String();
 
-				//int length_of_string = temp_string.length();
+				int length_of_string = temp_string.length();
 
-				sf::Font Fontforscore;
+				//sf::Font Fontforscore;
 
 				if (gflag == 0)
 				{
@@ -526,37 +526,35 @@ int gflag = 0;
 
 					
 
-					if (!Fontforscore.loadFromFile("ARIALBD.ttf"))
-					{
-						exit(1);
-					}
-
-
-
-
+				
 					message_holder10.setFont(Fontforscore);
-					message_holder10.setCharacterSize(100);
+					message_holder10.setCharacterSize(18);
 					message_holder10.setFillColor(sf::Color::Red);
-
-					message_holder10.setOrigin(0, 0);
-
-					message_holder10.setPosition(0, 0);
-					windowtype2.close();
+					//message_holder10.setStyle(sf::Text::Bold);
+					
+					//windowtype2.close();
 
 				}
 
-				message_holder10.setString("asty");
+
+				message_holder10.setOrigin(0, 0);
+
+				//message_holder10.setPosition(10, g_y);
+
+				//g_y = g_y + 25;
+
+				message_holder10.setString(temp_string);
 					
-					//int y_for_space = display_y_setting + (total_lines - 2) * each_vertical_offset_is;
+					int y_for_space = display_y_setting + (total_lines - 2) * each_vertical_offset_is;
 
 					//int this_width = 0;
 					
-					//float x = message_holder.getLocalBounds().width;
+					 float x = message_holder10.getLocalBounds().width;
 
 
 					
 					
-					//message_holder.setPosition( ( (first_width - x )/2), y_for_space);
+					message_holder10.setPosition( ( (first_width - x )/2), y_for_space);
 					
 			
 					//windowtype2.close();
@@ -564,9 +562,9 @@ int gflag = 0;
 
 					string test = 	message_holder10.getString();
 					
-					windowtype3.clear();
-					windowtype3.draw(message_holder10);
-					windowtype3.display();
+					//windowtype3.clear();
+					windowtype.draw(message_holder10);
+					windowtype.display();
 					
 					
  					
@@ -700,10 +698,10 @@ int DISPLAY::Get_Active_Statement_Number_Index(int conversation_num_index)
 	
 	
 	void DISPLAY::Wait_For_Space_Press()
-	{
+ 	{
 		int flag = 1;
 
-		while (flag)
+ 		while (flag)
 		{
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 			{
