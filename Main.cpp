@@ -32,7 +32,11 @@ std::unique_ptr<DISPLAY> ptextdisplay(new DISPLAY(50, 50, 50, 10, 0, 0));  // * 
 int main(void) {
 
 	
-	
+	//SET ALREADY IN CONSTRUTOR WELL...FIX THAT
+
+	//Configure_Display(int num_of_display_lines, int width_of_display_window, int the_font_size, int padding);
+	ptextdisplay->Configure_Display(10,290,18, 10, 18);
+
 
 	int one_time_loop = 0;
 
@@ -182,6 +186,6 @@ int main(void) {
 		string message = ptextdisplay->Get_String_Message(conv_num_index, input_statement_num_index);// alltheconversations[1].Get_Message_With_Statement_Num(active_number + 1);
 
 
-		ptextdisplay->DrawMessage(window, message, conv_num_index, vert_lines);
+		ptextdisplay->DrawMessage(window,  conv_num_index);
 
 	}

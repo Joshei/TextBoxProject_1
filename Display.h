@@ -23,10 +23,12 @@ public:
 
 
 	DISPLAY(  int, int, int displau_width, int display_height, int v_offset, int num_lines);
-	void DrawMessage(sf::RenderWindow & windowtype, std::string string, int convnum, int line_length);
+	void DrawMessage(sf::RenderWindow & windowtype, int convnum) ;
 	void SetFont(sf::Font & theFont);
 	void SetFont1(sf::Font & theFont);
-	
+	void Configure_Display(int num_of_display_lines, int width_of_display_rect, int the_font_size, int padding, int e);
+
+
 	sf::Text GetText();
 
 	int Get_Highest_Statement_Number(int conversation_number);
@@ -48,7 +50,12 @@ public:
 	sf::Text textmessage1;
 	sf::Font font;
 
-	
+	int font_size;
+	int width_of_display_rectangle;
+	int total_lines;
+	int horizontal_pixel_adjustment;
+
+
 	int space_is_used;
 	int scoreamount;
 	int width;
@@ -63,7 +70,7 @@ public:
 	string message_string;
 	
 
-	int total_lines;
+	
 	int active_statement_number;
 
 
