@@ -13,7 +13,12 @@ using namespace std;
 extern int gflag;
 
 
-int gvar = 0;
+
+
+//PROBLEMS:
+//consolidation needed between line number and new line number and needs checking line_number
+//three resizing parts not rememberig why this was created.
+
 
 //saved off for branch use
 
@@ -104,88 +109,113 @@ int gvar = 0;
 
 	{
 
-
-		//passed a null string, passed a one partial line
+		//test for a passed a null string, and a passed a one partial line
+		
+		
 		int amt_of_lines_for_this_message = -1;
 
+		//round number one or two, round one collects how many
 		int on_this_round = 1;
 
 		//first round checks the amount of lines for this message
 		while (on_this_round < 3) {
 
+		//indexes displayed characters
 		int i = 0;
+		//is how many characters have been displayed on each line and subtracted when
+		//there is a wrap around word removed
 		int j = 1;
-
+		
+		//set in first round to one if "press the space" message is to be displayed.
 		space_is_used = 0;
 		
+		//of is on first run is true this means that together with on_last_line
+		//that the amount of characters for the message is set to the exact amount
+		//of characters because no adjustments are needed.
 		bool is_on_first_run = true;
+		//to check if rectangle should be displayed.
 		int first_run = 1;
-
+		//number of characters on the current line is changed when finding the width of the 
+		//the letters across the rectangle.  When the words wrap and the words need removeale
+		//than this is reduced there.
 		float num_chars_on_this_line = 0;
 		
 		
-		
-		
+		//int last_word_started_at = 0;
 
-		
-
-		int last_word_started_at = 0;
+		//*****
+		//this is the amount of the letters of the word up against the right boundary
+		//if there is no space on the next line than the amount of this variable is 
+		//subtracted from j and from offset.
 		int amt_letters_of_last_word = 0;
+		
+		//wrapping check uses this to find amount of display letters when there is 
+		//and when there isn't wrapping on to the next line.
 		int amt_of_letters_to_display = 0;
 
+		//this is compared to width to find out if all the characters have been 
+		//displayed because the width stays the same.
 		float prevwidth = -1;
 		float width = 0;
-		
+
+		//the length of string so that if all letters have been displayed than leave the function
+		//that is constructing the message line.
 		int length_string = message_string.length() - 1;
 		
+		//means there is a partial statement and it is the last statement of the messages
 		int on_last_line = 0;
 		
+		//determined by the getlocalbounds is the vertical change after each line of display.
 		int height = 0;
-		int height2 = 0;
+
+		//was used for checking display in another renderwindow
+		//int height2 = 0;
 
 
-		//int element_index = message_string.length() - 1;
-
+		//the string name that is resized and displays the current indexing of the message_string
 		std::string temporary_string;
 		
+		//the change of the main sfml text object in characters so that it can start where it left off
 		int total_offset = 0;
 		
 		
-		int run = 0;
+		
+		//Set and multiplied by number of lines to determine sizing of rectangle and  display of 
+		//lines of characters
 		int each_vertical_offset_is = 0;
 
+		//???????????????????
 		textmessage.setString(message_string);
 		
-		
-		each_vertical_offset_is = textmessage.getLocalBounds().height;
-		
+		//holds the line number for determining what the current linenumber is within the functio
+		//as text is set for display with the draw function of the sfml text object.
 		int line_number = 0;
-
+		//Needs to be consolidated with the above variable
 		int other_line_number = 0;
 
+		//checks for the heigt of the characters by looking at the sfml text object
+		//that loads the message_string
+		each_vertical_offset_is = textmessage.getLocalBounds().height;
 		
 		
-		//total lines used for message singular
 		
-
-			//at end now
-			//on_this_round++;
-
-			//next line starts here checks if at the end of message and there is 
-			//still message left 
+		
+		
+			
 			while (1)
 			{
 
 				//round 1 is for preemptive determination of number of lines in message
-				//turns off display with flag.
-				//this function here determins if space is to be used in the subsequent 
-				//round two.  If space is used can break out of round loop.
+				//the display flag is turned off.
+				//this function here determins if the space is to be used in the subsequent 
+				//round two.  If space is used can break out of round loop because it is the
+				//last line of text.
 				if (on_this_round == 1)
 				{
 
 
 
-					//CHANGE TOO (AROUND 301) : amt_of_lines_for_this_message = line_number;
+					//CONSOLIDATE: CHANGE TOO (AROUND 301) : amt_of_lines_for_this_message = line_number;
 					other_line_number++;
 
 
@@ -193,44 +223,38 @@ int gvar = 0;
 					////////////////////
 
 
-					//if this is so means that there is more text on next screen with no space 
-					//so turn on space useage
+					//if this is so means that there is more text on next screen without its usage
+					//so turn on spacing to be used variable
 
-					//looking at next line after all text for checking use of space comment
-					//and than yes/no only. Set in here!
+					//set yes/no around here later
 
 
-					//determine if to use space...
+					//determine if to use space...is there more than one screen full of text look at following
+					//character if it is on the next line (even a space.)
 					if (other_line_number == total_lines + 1)
-					{//check if any characters even space
+					{
 
 						//check this maybe use a pointer os sorts
 						char check_for_character = NULL;
+						
+						
 						check_for_character = message_string[total_offset];
 
-						//turn on space because there is more text beyond the last line of text
+						//there is another line of text so that means that we will be using the
+						//space printout display
 						if (check_for_character)
 						{
-							//is more lines so there is use of space text
+							
 							space_is_used = 1;
 
-							//break out of this second while loop and start outer loop next round while.
+							//break out of this second while loop and start outer loop next round 2.
 
 							break;
 						}
 
 					}
 				}
-				///////////
-
-				//NOT NEEDED!
-	//			//DUPLICATE POSSIBLE BELOW MAYBE A BETTER SOLUTION : fix sign too!
-	//			else if (j >= message_string.length())
-	//			{
-	//
-	//			
-	//			}
-
+				
 
 
 				//IN HERE ADDED OUTER WHILE ARE ALL THE VARIABLES RESET FOR USAGE?!?!?!
@@ -243,22 +267,33 @@ int gvar = 0;
 
 				
 				//total_offset = total_offset + num_chars_on_this_line + 1 ;
+				
+				//sets the offset into the  message_string string
 				total_offset = total_offset + num_chars_on_this_line;
 
-
+				//a simple flag that could be replaced; makes both width and prewidth not equivalent when there started
+				//as zero
 				int one_through_count = 0;
+				//the width of the characters is stored here for use in the functionality that follows
 				float first_width = 0;
+				//compared to first_width to see if the charactes fit into the displayed rectangle
 				float width = 0;
 
 				///////////////
 				string message_string1;
 
-				//CHECHK THIS
+				//PROBABLY PUT THIS SOMEWHERE ELSE
+				//textmessage is for the message string parts, that is each line.
+				//textmessage1 is for the display of space or yes no text from the message class.
 				textmessage.setCharacterSize(font_size);
 				textmessage1.setCharacterSize(font_size);
+				
 				textmessage1.setPosition(0, 0);
 				textmessage1.setFillColor(sf::Color::Red);
 				//textmessage.setString(temporary_string);
+				
+				
+				//NEEDS CHANGING OF NAME taken from other program
 				sf::Font Fontforscore;
 
 				if (!Fontforscore.loadFromFile("ARIALBD.ttf"))
@@ -273,8 +308,9 @@ int gvar = 0;
 
 
 				
-				//to get width of text in pixels : maybe 290
-
+				//this while used to find the width approximation for the passed in integer
+				//for width_of_display_rectangle by using a character and checking for the 
+				//width.  This width is than used in the next while loop below.
 				while (first_width <= width_of_display_rectangle)// > width)
 				{
 
@@ -284,18 +320,10 @@ int gvar = 0;
 					textmessage1.setString(message_string1);
 
 
-
-					
-
-
 					prevwidth = first_width;
 					first_width = textmessage1.findCharacterPos(num_chars_on_this_line).x - textmessage1.findCharacterPos(0).x;
-					//first_width = textmessage1.getLocalBounds().width;
-
-
-					//width = textmessage.getGlobalBounds().width;
-
-					//text is complete for this line
+					
+					//simple flag to make sure intial values of zero don't cause breaking inside braces
 					if ((prevwidth == first_width) && (one_through_count != 0))
 
 					{
@@ -304,49 +332,40 @@ int gvar = 0;
 					}
 
 					one_through_count = 1;
+					
+					//probably not needed
 					num_chars_on_this_line++;
 
 				}
 
 
 
-				//out of determiner that we have number of lines for this message
-
-				//is total of linenumber of message when there is break
+				//*****CONFUSED WHAT IS THIS
 				amt_of_lines_for_this_message = line_number;
 
 				line_number = 0;
 
 
 
-
+				//was here for testing purposes
 				//windowtype2.draw(textmessage);
-
 				//windowtype2.display();
 
 
-				//////////////
 
+				
+				
 				num_chars_on_this_line = 1;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-				//find number of characters by width - width = : 496
+				
+				//uses determined width above to keep the right amount of characters
+				//that will fit in rectangle drawn below
 				while (first_width > width)// 
 				{
 
-					line_number++;
+					//doesn't look right here
+					//line_number++;
 
 					if (j == (message_string.length()))
 					{
@@ -354,15 +373,15 @@ int gvar = 0;
 						break;
 					}
 
+					//****not an index starts at one, is the number of total characters for this ????????
 					j++;
 
 
 					prevwidth = width;
 					width = textmessage.findCharacterPos(num_chars_on_this_line).x - textmessage.findCharacterPos(0).x;
 
-					//width = textmessage.getGlobalBounds().width;
 
-					//text is complete for this line
+					//if the same than all characters have been used...COMPARE THIS TO THE WHILE LOOP AND SOLVE ANY PROBLEMS
 					if ((prevwidth == width) && (num_chars_on_this_line != 0))
 
 					{
@@ -370,39 +389,38 @@ int gvar = 0;
 						break;
 					}
 
-
+					//used to keep track of how many characters fit within the width 
 					num_chars_on_this_line++;
 
 				}
 
-				//move this...!
-				//ClearOutBox(windowtype, first_width);
-
-
+				
 				//old debug usage
 				//windowtype2.draw(textmessage);
 				//windowtype2.display();
 
 
+				//erase this string called temporary string
 				temporary_string.erase(0, temporary_string.length() - 0);
 
 
-				//only line processed
+				//////////CHECK THIS: confusing...these three conditions below seem
+				//to be an adjustment from when the string was created in the second
+				//while loop that adjusts the num_chars_on_this_line.
+
+				//only line processed so just resize it normally 
 				if (on_last_line   &&  is_on_first_run)
 				{
 					temporary_string.resize(num_chars_on_this_line);
 
 				}
 
-				//multiple lines processed
+				
 				else if (on_last_line)
 				{
 
 					temporary_string.resize(num_chars_on_this_line - 1);
 				}
-
-
-
 
 
 
@@ -412,6 +430,13 @@ int gvar = 0;
 					temporary_string.resize(num_chars_on_this_line + 1);
 				}
 
+
+
+				/////////////////////
+
+
+				//create the string and total offset is the amount of offset into the entire sfml object
+				//message_string.
 
 				//for (i = 0; i < num_chars_on_this_line - 1; i++)
 				for (i = 0; i < num_chars_on_this_line; i++)
@@ -424,19 +449,20 @@ int gvar = 0;
 
 
 
-				//could be wrapping
+				//CHECK :  could be wrapping because not on a last line which is a designation that
+				//the line is partial
 				if (on_last_line != 1)
 				{
-
+					//put here to check the next character below this for loop 
 					int k = 0;
-					//find number of characters ON right border
+					//find number of characters up against right border
 					for (k; k < num_chars_on_this_line; k++)
 					{
 
 
 
 
-
+						//if a space start the last word possiblity again 
 						if (temporary_string[k] == ' ')
 						{
 
@@ -444,7 +470,8 @@ int gvar = 0;
 							amt_letters_of_last_word = 0;
 
 						}
-						//is not a space
+						
+						//is not a space so continue adding letters  until done or a space is finished with
 						else
 						{
 							amt_letters_of_last_word++;
@@ -460,7 +487,9 @@ int gvar = 0;
 
 
 
-					//look at next characer to see if ending word is wrapped or printed
+					//look at next characer to see if ending word is wrapped or displayed as is
+					//ending right up against right border so check next space which is the 
+					//next line's next character
 					if (temporary_string[k] == ' ')
 					{
 
@@ -476,6 +505,8 @@ int gvar = 0;
 
 					{
 
+						//AN INTERESTING FAILURE CHECK IDEA
+
 						//				if (amt_letters_of_last_word >= num_chars_on_this_line)
 						//				{
 						//					
@@ -485,10 +516,16 @@ int gvar = 0;
 						//				}
 
 
+						//if there is a word wrap onto next line than decrease.
 						amt_of_letters_to_display = num_chars_on_this_line - amt_letters_of_last_word;
 
 
 
+						//decrease these two variables that keep track of letters displayed and the offset
+						//into the entire message, sfml text object.
+					
+						//the position of j is set to any unwrapped text
+						//total offset is where the index is reading the test_string from
 
 						j = j - amt_letters_of_last_word;
 						total_offset = total_offset - amt_letters_of_last_word;
@@ -496,16 +533,14 @@ int gvar = 0;
 					}
 
 
-
+					//resizes to the exact size of the string 
 					temporary_string.resize(amt_of_letters_to_display);
 
 
 
 
 
-					//the position of j is set to any unwrapped text
-					//total offset is where the index is reading the test_string from
-
+					
 
 
 
@@ -515,8 +550,11 @@ int gvar = 0;
 
 
 
-			//add padd
-			//general text
+				//add padding to rectangle decision needed.
+				
+				
+				
+				//sfml object textmessage loaded with a part of the entire string; one lines worth
 				textmessage.setPosition(display_x_setting, display_y_setting + height);
 				//textmessage.setCharacterSize(18);
 				textmessage.setFillColor(sf::Color::Red);
@@ -524,7 +562,7 @@ int gvar = 0;
 
 
 
-
+				//displays the rectangle box one time for each new display of the text lines.
 				sf::RectangleShape rectangle_box(sf::Vector2f(first_width + horizontal_pixel_adjustment, (float)(total_lines * each_vertical_offset_is)));
 
 				rectangle_box.setFillColor(sf::Color(100, 250, 50));
@@ -537,54 +575,19 @@ int gvar = 0;
 					windowtype.draw(rectangle_box);
 				}
 
-
+				//drawn on the rectangle the line of text.
 				windowtype.draw(textmessage);
 				
 
-
-
-
-
+				//adjusts where the text is displayed vertically
 				height = height + each_vertical_offset_is;
-				height2 = height2 + 50;
-
-
-
-
-
-
-
-
-
-				////////////////
-
-				//either way either on last line with no wrapping or j is set
-
-				//j is still set and so is offset
-
-
-
-				//LOOK AT THIS!!!!!:
-
-
-		//		space_is_used = 1;
-
-
+				//height2 = height2 + 50;
 
 
 				sf::Text message_holder10;
-				//sf::RenderWindow windowtype3(sf::VideoMode(700, 1000), "a");
-
-
-
-
-
-
-
-
-
-
 				
+				
+				//JUST IN CASE IS NEEDED:
 
 				/*
 
@@ -610,17 +613,18 @@ int gvar = 0;
 
 				
 				 
-				///on this round means where is checked for total lines off message
+				//on this round one is just getting information for space useage - if space is used because
+				//there is more text than one screen full.
 				if ((on_this_round > 1) && ((space_is_used && on_last_line) || (space_is_used && ((line_number) == (total_lines - 2)))))
 				{
 
-
+					//loads the comment to be diplayed from message object
 					string temp_string = message::Get_Out_Bound_String();
 
-					int length_of_string = temp_string.length();
+					//int length_of_string = temp_string.length();
 
-					//sf::Font Fontforscore;
-
+					
+					//ALL THIS COULD BE DONE AGAIN BETTER...LOOK OVER AND FIX
 					if (gflag == 0)
 					{
 						gflag = 1;
@@ -633,97 +637,76 @@ int gvar = 0;
 						message_holder10.setFillColor(sf::Color::Red);
 						//message_holder10.setStyle(sf::Text::Bold);
 
-						//windowtype2.close();
+						
 
 					}
 
 
 					message_holder10.setOrigin(0, 0);
 
-
-
+					//Filled with space text 
 					message_holder10.setString(temp_string);
 
+					//displays properly on the y setting - vertical
 					int y_for_space = display_y_setting + (total_lines - 2) * each_vertical_offset_is;
 
 
-
+					//*****
 					float x = message_holder10.getLocalBounds().width;
 
 
 
-
+					//***** centers the comment text from message
 					message_holder10.setPosition(((first_width - x) / 2), y_for_space);
 
+					//was used for testing purposes
+					//string test = message_holder10.getString();
 
-					//windowtype2.close();
-
-
-					string test = message_holder10.getString();
-
-					//windowtype3.clear();
+					//CHECK THIS FOR THE CLEAR
 					windowtype.draw(message_holder10);
 					//windowtype.clear();
 
 
 
+					//UNTESTED FOR NOW, if on non first information gathering round than is okay to display
+
 					if (on_this_round > 1)
 					{
 						windowtype.display();//this is the one display int this function
 						windowtype.clear();
-						gvar = 1;
-					
-						//check this supposed is spaced displayed so back to beginning of while create lines 
-						//with reset variables all necessary, check!
-				//		Wait_For_Space_Press();
-						line_number = 0;
-						//CHECK THIS
-						on_last_line = 0;
-						
 
+
+						//lets check after space chang on this round and these two variables so that
+						//first round check for next part of message is done.
+						line_number = 0;
+
+						//CHECK THIS (and consolidate)
+						on_last_line = 0;
+
+
+						//CHECK THIS : 
+						Wait_For_Space_Press();
+
+
+						//This will change below so that it is changed back to 1 because we are resetting 
+						//the round to 1 and therefore checking the remaining message
+						//to determine if the correct number of lines is for displaying
+						//space again.
+						on_this_round = -1;
+
+						//CHECK RIGHT HERE FOR ANY PROBLEMA
 
 
 					}
 
 
 
-
-
-
-
-
-
-
-					///Wait_For_Space_Press();
-
- 
-
-
-
-					//ClearOutBox( windowtype );
-
-
-
-
-					//height = 0;
-					//breaks out of while create each line and waits for space
-
-					//break;
-
-
-
 				}
-
-				
-
-
-
-
-
+				//otherwise not space and on last line so this means that it is displayable on screen completely.
 				else if (on_last_line)
 				{
 
-
+					//not informatio gathering round : 1.
 					if (on_this_round > 1) {
 						windowtype.display();
 						windowtype.clear();
@@ -744,12 +727,7 @@ int gvar = 0;
 
 
 
-
-
-
-
-
-
+				//used for resizing the variable appropriatly higher up above.
 				if (is_on_first_run)
 				{
 					is_on_first_run = false;
@@ -757,7 +735,7 @@ int gvar = 0;
 
 
 				
-
+				//SHOULDN"T BE USED HERE, LEAVING JUST IN CASE.
 
 				//	if (on_this_round > 1)
 				//	{
@@ -773,27 +751,27 @@ int gvar = 0;
 
 
 
-
 			}//emd while, for creating each line
 
 
-			//here waiting for space
+			//here waiting for space for now for proper viewing
 			
-			if (on_this_round != 1)
+			if (on_this_round > 1)
 			{
 				Wait_For_Space_Press();
 			}
 
 		
-
+			//no longer round 1 or if space above was used would be equated to zero here.
 			on_this_round++;
 
-}//second while: for checking round to know number of lines : got here by break?!?!?
+}//second while: for checking round. round one is information gathering. round two is displaying a message
+ //if need to display more message than on_this_round needs to be changed to one again!
 
 }
 
 
-
+//TO COMMENT LATER
 int DISPLAY::Get_Active_Statement_Number_Index(int conversation_num_index)
 {
 
