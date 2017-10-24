@@ -31,6 +31,8 @@ std::unique_ptr<DISPLAY> ptextdisplay(new DISPLAY(50, 50, 50, 10, 0, 0));  // * 
 
 int main(void) {
 
+
+	//cout << "test";
 	
 	//SET ALREADY IN CONSTRUTOR WELL...FIX THAT
 

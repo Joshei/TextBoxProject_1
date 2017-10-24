@@ -13,6 +13,8 @@ using namespace std;
 extern int gflag;
 
 
+int gvar = 0;
+
 //saved off for branch use
 
 
@@ -102,17 +104,19 @@ extern int gflag;
 
 	{
 
+
+		//passed a null string, passed a one partial line
 		int amt_of_lines_for_this_message = -1;
 
 		int on_this_round = 1;
 
-
+		//first round checks the amount of lines for this message
 		while (on_this_round < 3) {
 
 		int i = 0;
 		int j = 1;
 
-		int space_is_used = 0;
+		space_is_used = 0;
 		
 		bool is_on_first_run = true;
 		int first_run = 1;
@@ -157,7 +161,8 @@ extern int gflag;
 		
 		int line_number = 0;
 
-		
+		int other_line_number = 0;
+
 		
 		
 		//total lines used for message singular
@@ -166,25 +171,77 @@ extern int gflag;
 			//at end now
 			//on_this_round++;
 
-			//for next line
+			//next line starts here checks if at the end of message and there is 
+			//still message left 
 			while (1)
 			{
+
+				//round 1 is for preemptive determination of number of lines in message
+				//turns off display with flag.
+				//this function here determins if space is to be used in the subsequent 
+				//round two.  If space is used can break out of round loop.
+				if (on_this_round == 1)
+				{
+
+
+
+					//CHANGE TOO (AROUND 301) : amt_of_lines_for_this_message = line_number;
+					other_line_number++;
+
+
+
+					////////////////////
+
+
+					//if this is so means that there is more text on next screen with no space 
+					//so turn on space useage
+
+					//looking at next line after all text for checking use of space comment
+					//and than yes/no only. Set in here!
+
+
+					//determine if to use space...
+					if (other_line_number == total_lines + 1)
+					{//check if any characters even space
+
+						//check this maybe use a pointer os sorts
+						char check_for_character = NULL;
+						check_for_character = message_string[total_offset];
+
+						//turn on space because there is more text beyond the last line of text
+						if (check_for_character)
+						{
+							//is more lines so there is use of space text
+							space_is_used = 1;
+
+							//break out of this second while loop and start outer loop next round while.
+
+							break;
+						}
+
+					}
+				}
+				///////////
+
+				//NOT NEEDED!
+	//			//DUPLICATE POSSIBLE BELOW MAYBE A BETTER SOLUTION : fix sign too!
+	//			else if (j >= message_string.length())
+	//			{
+	//
+	//			
+	//			}
+
 
 
 				//IN HERE ADDED OUTER WHILE ARE ALL THE VARIABLES RESET FOR USAGE?!?!?!
 
-				//the vertical line of this most current line.
-				//
+				//current vertical line
 				line_number++;
 
-				
-
 				amt_letters_of_last_word = 0;
-
 				amt_of_letters_to_display = 0;
 
-
-
+				
 				//total_offset = total_offset + num_chars_on_this_line + 1 ;
 				total_offset = total_offset + num_chars_on_this_line;
 
@@ -193,16 +250,13 @@ extern int gflag;
 				float first_width = 0;
 				float width = 0;
 
-
 				///////////////
 				string message_string1;
 
 				//CHECHK THIS
 				textmessage.setCharacterSize(font_size);
 				textmessage1.setCharacterSize(font_size);
-
 				textmessage1.setPosition(0, 0);
-
 				textmessage1.setFillColor(sf::Color::Red);
 				//textmessage.setString(temporary_string);
 				sf::Font Fontforscore;
@@ -212,39 +266,26 @@ extern int gflag;
 					exit(1);
 				}
 
-
-
+				
 				textmessage1.setFont(Fontforscore);
-
-
-
-
 
 				num_chars_on_this_line = 1;
 
 
-
-				
-				
 				
 				//to get width of text in pixels : maybe 290
 
 				while (first_width <= width_of_display_rectangle)// > width)
 				{
 
-					message_string1.append("T");
+					
 
+					message_string1.append("T");
 					textmessage1.setString(message_string1);
 
 
 
-					//		if (j == (message_string.length()))
-					//		{
-					//			on_last_line = 1;
-					//			break;
-					//		}
-
-				//			j++;
+					
 
 
 					prevwidth = first_width;
@@ -498,7 +539,7 @@ extern int gflag;
 
 
 				windowtype.draw(textmessage);
-
+				
 
 
 
@@ -526,7 +567,7 @@ extern int gflag;
 				//LOOK AT THIS!!!!!:
 
 
-				space_is_used = 1;
+		//		space_is_used = 1;
 
 
 
@@ -567,9 +608,8 @@ extern int gflag;
 
 
 
-
-
-
+				
+				 
 				///on this round means where is checked for total lines off message
 				if ((on_this_round > 1) && ((space_is_used && on_last_line) || (space_is_used && ((line_number) == (total_lines - 2)))))
 				{
@@ -631,6 +671,18 @@ extern int gflag;
 					{
 						windowtype.display();//this is the one display int this function
 						windowtype.clear();
+						gvar = 1;
+					
+						//check this supposed is spaced displayed so back to beginning of while create lines 
+						//with reset variables all necessary, check!
+				//		Wait_For_Space_Press();
+						line_number = 0;
+						//CHECK THIS
+						on_last_line = 0;
+						
+
+
+
 					}
 
 
@@ -642,7 +694,7 @@ extern int gflag;
 
 
 
-					Wait_For_Space_Press();
+					///Wait_For_Space_Press();
 
  
 
@@ -654,14 +706,15 @@ extern int gflag;
 
 
 					//height = 0;
+					//breaks out of while create each line and waits for space
 
-					break;
+					//break;
 
 
 
 				}
 
-
+				
 
 
 
@@ -674,6 +727,10 @@ extern int gflag;
 					if (on_this_round > 1) {
 						windowtype.display();
 						windowtype.clear();
+
+						
+
+
 					}
 					break;
 
@@ -699,7 +756,7 @@ extern int gflag;
 				}
 
 
-
+				
 
 
 				//	if (on_this_round > 1)
@@ -712,8 +769,20 @@ extern int gflag;
 				//	on_this_round++;
 
 
-			}//emd while, for create line
+				//here make sure pring and wait for space and j and offset is correct
 
+
+
+
+			}//emd while, for creating each line
+
+
+			//here waiting for space
+			
+			if (on_this_round != 1)
+			{
+				Wait_For_Space_Press();
+			}
 
 		
 
