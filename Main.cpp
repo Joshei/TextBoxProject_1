@@ -32,6 +32,13 @@ std::unique_ptr<DISPLAY> ptextdisplay(new DISPLAY(50, 50, 50, 10, 0, 0));  // * 
 int main(void) {
 
 
+//	int 	on_this_round = 1;
+//	while (1)
+//	{
+//		//on_this_round++;
+//		on_this_round = on_this_round % 2 + 1;
+//	}
+
 	//cout << "test";
 	
 	//SET ALREADY IN CONSTRUTOR WELL...FIX THAT
@@ -79,7 +86,7 @@ int main(void) {
 			{
 
 
-				//shoots at asteroid
+				
 				if (event.key.code == sf::Keyboard::Escape)
 				{
 					exit(-1);
@@ -98,7 +105,7 @@ int main(void) {
 		
 		
 					   	
-		string test = "a b c d ef ghijklm no pqd r stuv  1234 56 789 0 123 45678 90 1234abc d ef";
+		string test = "1 2 3 4 5 6 7 8 9 a b c d e f g h i j k l m n o p q r s t u v w x y z";
 
 		int checkthis = test.length();
 		string test1 = "abc def ghi jkl mno pqr stu vwx yz 123 456 789 012 345 678 901 abc deg ghi";

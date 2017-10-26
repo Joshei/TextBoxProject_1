@@ -112,19 +112,56 @@ extern int gflag;
 		//test for a passed a null string, and a passed a one partial line
 		
 		
-		int amt_of_lines_for_this_message = -1;
+		//int amt_of_lines_for_this_message = -1;
 
 		//round number one or two, round one collects how many
 		int on_this_round = 1;
 
+
+		//these are the previous j and total offset before they are changed for next line being
+		//read in!
+		int last_j = 0;
+		int last_total_offset = 0;
+
+
+
+
 		//first round checks the amount of lines for this message
-		while (on_this_round < 3) {
+		
+
+		//this is new and the round alternates : 1 2 1 2 1 2 with a modulus at end of function
+		//for a new 2 just started (on_this_round) the old values of j and offset have been reset
+		//to the running right previous
+		//if the value of : on_this_round is newly set to 1 than the two variables remain
+		//as they have been left to continue diplaying the ongoing text message with offset
+		//and j.  j is number of characters used to check for if message length is complete
+		//so that the variable on_last_line is set.
+
+
+
+		//there is a wrap around word removed
+		int j = 1;
+
+		//the change of the main sfml text object in characters so that it can start where it left off
+		int total_offset = 0;
+		
+
+
+		//while (on_this_round < 3) {
+		//this happens after every round
+		while (1) {
+		
+			//these are the previous j and total offset before they are changed for next line being
+			//read in!
+			last_j = j;
+			last_total_offset = total_offset;
+
+
+			
 
 		//indexes displayed characters
 		int i = 0;
 		//is how many characters have been displayed on each line and subtracted when
-		//there is a wrap around word removed
-		int j = 1;
 		
 		//set in first round to one if "press the space" message is to be displayed.
 		space_is_used = 0;
@@ -175,8 +212,6 @@ extern int gflag;
 		//the string name that is resized and displays the current indexing of the message_string
 		std::string temporary_string;
 		
-		//the change of the main sfml text object in characters so that it can start where it left off
-		int total_offset = 0;
 		
 		
 		
@@ -191,32 +226,41 @@ extern int gflag;
 		//as text is set for display with the draw function of the sfml text object.
 		int line_number = 0;
 		//Needs to be consolidated with the above variable
-		int other_line_number = 0;
+		//int other_line_number = 0;
 
 		//checks for the heigt of the characters by looking at the sfml text object
 		//that loads the message_string
 		each_vertical_offset_is = textmessage.getLocalBounds().height;
 		
+
+		
+
+		
+
 		
 		
 		
-		
-			
+			//in here displays one line per each iteration (next iteration is next line)
 			while (1)
 			{
+				
+				// current vertical line
+				line_number++;
 
 				//round 1 is for preemptive determination of number of lines in message
 				//the display flag is turned off.
 				//this function here determins if the space is to be used in the subsequent 
 				//round two.  If space is used can break out of round loop because it is the
 				//last line of text.
+				
+				//checks to see if space is used on the next round, important
 				if (on_this_round == 1)
 				{
 
 
 
 					//CONSOLIDATE: CHANGE TOO (AROUND 301) : amt_of_lines_for_this_message = line_number;
-					other_line_number++;
+					//other_line_number++;
 
 
 
@@ -231,7 +275,9 @@ extern int gflag;
 
 					//determine if to use space...is there more than one screen full of text look at following
 					//character if it is on the next line (even a space.)
-					if (other_line_number == total_lines + 1)
+					//if (other_line_number == total_lines + 1)
+					if (line_number == total_lines + 1)
+					
 					{
 
 						//check this maybe use a pointer os sorts
@@ -259,8 +305,7 @@ extern int gflag;
 
 				//IN HERE ADDED OUTER WHILE ARE ALL THE VARIABLES RESET FOR USAGE?!?!?!
 
-				//current vertical line
-				line_number++;
+				
 
 				amt_letters_of_last_word = 0;
 				amt_of_letters_to_display = 0;
@@ -341,9 +386,10 @@ extern int gflag;
 
 
 				//*****CONFUSED WHAT IS THIS
-				amt_of_lines_for_this_message = line_number;
+				//not used anymore
+				//amt_of_lines_for_this_message = line_number;
 
-				line_number = 0;
+				
 
 
 
@@ -394,6 +440,7 @@ extern int gflag;
 
 				}
 
+				//line_number++;
 				
 				//old debug usage
 				//windowtype2.draw(textmessage);
@@ -401,7 +448,7 @@ extern int gflag;
 
 
 				//erase this string called temporary string
-				temporary_string.erase(0, temporary_string.length() - 0);
+ 				temporary_string.erase(0, temporary_string.length() - 0);
 
 
 				//////////CHECK THIS: confusing...these three conditions below seem
@@ -615,7 +662,12 @@ extern int gflag;
 				 
 				//on this round one is just getting information for space useage - if space is used because
 				//there is more text than one screen full.
-				if ((on_this_round > 1) && ((space_is_used && on_last_line) || (space_is_used && ((line_number) == (total_lines - 2)))))
+				
+				
+				//on this round uses a mod to alternate betweeen 1 and 2 over and over again
+				//if modulated to 2, below this will change to 1 again to collect the space 
+				//information once again.
+				if ((on_this_round == 2) && ((space_is_used && on_last_line) || (space_is_used && ((line_number) == (total_lines - 2)))))
 				{
 
 					//loads the comment to be diplayed from message object
@@ -670,7 +722,7 @@ extern int gflag;
 
 					//UNTESTED FOR NOW, if on non first information gathering round than is okay to display
 
-					if (on_this_round > 1)
+					if (on_this_round == 2)
 					{
 						windowtype.display();//this is the one display int this function
 						windowtype.clear();
@@ -692,7 +744,10 @@ extern int gflag;
 						//the round to 1 and therefore checking the remaining message
 						//to determine if the correct number of lines is for displaying
 						//space again.
-						on_this_round = -1;
+						
+						
+						////sets this to one below
+						//on_this_round = -1;
 
 						//CHECK RIGHT HERE FOR ANY PROBLEMA
 
@@ -707,7 +762,7 @@ extern int gflag;
 				{
 
 					//not informatio gathering round : 1.
-					if (on_this_round > 1) {
+					if (on_this_round == 2) {
 						windowtype.display();
 						windowtype.clear();
 
@@ -756,14 +811,54 @@ extern int gflag;
 
 			//here waiting for space for now for proper viewing
 			
-			if (on_this_round > 1)
+			if (on_this_round ==  2)
 			{
 				Wait_For_Space_Press();
 			}
 
+			
+			
 		
 			//no longer round 1 or if space above was used would be equated to zero here.
-			on_this_round++;
+			
+			//alternates round 1 and round 2
+			//on_this_round++;
+			on_this_round = on_this_round % 2 + 1;
+			
+			//reset for round 2 because is known if space is to be used now.
+			//if there is more text than the round will be more than two
+			//for example if the round is three than there has been more text beyond a space
+			//for each higher number means there are additional messages after the space
+
+			//redo the same procedure as right before however if space is to be used has been determined
+			//on the next round here than once again we use a information gathering tactic to determine
+			//if space is used which means that the round is one again and the j and total_offset will not
+			//change
+			
+			//after round 2 is round 1 again so the j and total offset stays the same.
+			
+			//this means reset j ans total_offsset every other time
+			//this just started round 2 means reset the values
+			//when on_this_round starts by equaling 1 than it is time to gather space information 
+			//again so these two values stay how they are
+			if (on_this_round == 2)
+			{
+				
+				
+
+				j = last_j;
+				total_offset = last_total_offset;
+				
+
+			}
+			if (on_this_round == 1)
+			{
+
+				if (space_is_used != 1)
+					break;
+
+			}
+
 
 }//second while: for checking round. round one is information gathering. round two is displaying a message
  //if need to display more message than on_this_round needs to be changed to one again!
@@ -841,7 +936,12 @@ int DISPLAY::Get_Active_Statement_Number_Index(int conversation_num_index)
 		{
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 			{
+				
 				flag = 0;
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+			{
+				exit(-1);
 			}
 
 		}
