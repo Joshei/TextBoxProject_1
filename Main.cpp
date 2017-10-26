@@ -44,7 +44,7 @@ int main(void) {
 	//SET ALREADY IN CONSTRUTOR WELL...FIX THAT
 
 	//Configure_Display(int num_of_display_lines, int width_of_display_window, int the_font_size, int padding);
-	ptextdisplay->Configure_Display(10,290,18, 10, 18);
+	ptextdisplay->Configure_Display(4,290,18, 10, 18);
 
 
 	int one_time_loop = 0;

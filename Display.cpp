@@ -29,7 +29,7 @@ extern int gflag;
 
 		font_size = 18;
 		horizontal_pixel_adjustment = 18;
-		total_lines = 10;
+		total_lines = 3;
 
 		//width_of_display_rectangle = 290;
 
@@ -145,6 +145,8 @@ extern int gflag;
 		//the change of the main sfml text object in characters so that it can start where it left off
 		int total_offset = 0;
 		
+		//set in first round to one if "press the space" message is to be displayed.
+		space_is_used = 0;
 
 
 		//while (on_this_round < 3) {
@@ -163,8 +165,7 @@ extern int gflag;
 		int i = 0;
 		//is how many characters have been displayed on each line and subtracted when
 		
-		//set in first round to one if "press the space" message is to be displayed.
-		space_is_used = 0;
+		
 		
 		//of is on first run is true this means that together with on_last_line
 		//that the amount of characters for the message is set to the exact amount
@@ -238,10 +239,10 @@ extern int gflag;
 		
 
 		
-		
+		 
 		
 			//in here displays one line per each iteration (next iteration is next line)
-			while (1)
+		 	while (1)
 			{
 				
 				// current vertical line
@@ -276,7 +277,7 @@ extern int gflag;
 					//determine if to use space...is there more than one screen full of text look at following
 					//character if it is on the next line (even a space.)
 					//if (other_line_number == total_lines + 1)
-					if (line_number == total_lines + 1)
+					if (line_number == (total_lines - 2) )
 					
 					{
 
